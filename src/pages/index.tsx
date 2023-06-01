@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './index.module.css';
 const Home = () => {
-  let [turncolor, setTurncolor] = useState(1);
+  const [turncolor, setTurncolor] = useState(1);
   //prettier-ignore
   const [board, setBoard] = useState([
   [0,0,0,0,0,0,0,0],
@@ -54,9 +54,7 @@ const Home = () => {
   }
 
   const click_pass = () => {
-    turncolor = 3 - turncolor;
-
-    setTurncolor(turncolor);
+    setTurncolor(3 - turncolor);
 
     console.log('変わったよ', turncolor);
   };
