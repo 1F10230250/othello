@@ -8,6 +8,35 @@
   padding: 0 0.5rem;
 }
 
+.black_number {
+  display: flex;
+  height: 80px;
+  width: 80px;
+  align-items: center;
+  justify-content: center;
+  margin-right: auto;
+  align-self: stretch;
+  float: left;
+  border: 5px solid black;
+}
+
+.white_number {
+  display: flex;
+  height: 80px;
+  width: 80px;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  align-self: stretch;
+  border: 5px solid black;
+}
+
+.ka-soru {
+  display: flex;
+  height: 80px;
+  width: 80px;
+}
+
 .pass {
   height: 80px;
   width: 80px;

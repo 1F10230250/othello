@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './index.module.css';
 const Home = () => {
   const [turncolor, setTurncolor] = useState(1);
@@ -13,6 +13,34 @@ const Home = () => {
   [0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0]
   ]);
+  let white = 0;
+  for (let yaa = 0; yaa <= 7; yaa += 1) {
+    for (let xaa = 0; xaa <= 7; xaa += 1) {
+      if (board[yaa][xaa] === 2) {
+        white += 1;
+      }
+    }
+  }
+  let black = 0;
+  for (let yaa = 0; yaa <= 7; yaa += 1) {
+    for (let xaa = 0; xaa <= 7; xaa += 1) {
+      if (board[yaa][xaa] === 1) {
+        black += 1;
+      }
+    }
+  }
+  useEffect(() => {
+    const white_number = white;
+    const white_resultElement = document.getElementById('result');
+    if (white_resultElement) {
+      white_resultElement.textContent = white_number.toString();
+    }
+    const black_number: number = black;
+    const black_resultElement = document.getElementById('result');
+    if (black_resultElement) {
+      black_resultElement.textContent = black_number.toString();
+    }
+  }, [white, black]);
   for (let yaa = 0; yaa <= 7; yaa += 1) {
     for (let xaa = 0; xaa <= 7; xaa += 1) {
       if (board[yaa][xaa] === 3) {
@@ -110,6 +138,13 @@ const Home = () => {
       {/* <div className={styles.pass} onClick={() => clickcell(100, 100)}>
         <p>パス</p>
       </div> */}
+      <div id="your-element-id">要素</div>
+      <div className={styles.black_number} id="result-black">
+        黒{black}
+      </div>
+      <div className={styles.white_number} id="result-white">
+        白{white}
+      </div>
       <div className={styles.pass} onClick={click_pass}>
         pass
       </div>
@@ -120,6 +155,7 @@ const Home = () => {
               {color !== 0 && (
                 <div
                   className={styles.stone}
+                  id="stone"
                   style={{ background: color === 1 ? '#000' : color === 2 ? '#fff' : '#f00' }}
                 />
               )}
