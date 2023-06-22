@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import styles from './index.module.css';
 import { Cell } from '../components/Cell';
+import styles from './index.module.css';
 const Home = () => {
   const [turncolor, setTurncolor] = useState(1);
   //prettier-ignore
@@ -152,7 +152,7 @@ const Home = () => {
       <div className={styles.board}>
         {board.map((row, y) =>
           row.map((color, x) => (
-            <Cell key={`${x}-${y}`}  color={color} onClick={()=>onClick(x,y)}/>
+            <Cell key={`${x}-${y}`} color={color} onClick={() => onClick(x, y)} />
           ))
         )}
       </div>
