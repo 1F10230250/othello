@@ -131,5 +131,5 @@ export const useGame = () => {
     }
     setBoard(newBoard);
   };
-  return { click_pass, board, onClick, turncolor };
+  return { click_pass, board, onClick, turncolor, black, white };
 };
