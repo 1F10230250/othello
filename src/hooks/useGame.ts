@@ -80,10 +80,8 @@ export const useGame = () => {
     }
   }
 
-  const click_pass = () => {
-    setTurncolor(3 - turncolor);
-
-    console.log('変わったよ', turncolor);
+  const click_reload = () => {
+    window.location.reload();
   };
 
   let stop = 100;
@@ -131,5 +129,5 @@ export const useGame = () => {
     }
     setBoard(newBoard);
   };
-  return { click_pass, board, onClick, turncolor, black, white };
+  return { click_reload, board, onClick, turncolor, black, white };
 };

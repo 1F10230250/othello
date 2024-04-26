@@ -2,7 +2,7 @@ import { Cell } from '../components/Cell';
 import { useGame } from '../hooks/useGame';
 import styles from './index.module.css';
 const Home = () => {
-  const { onClick, click_pass, board, white, black } = useGame();
+  const { onClick, click_reload, board, white, black } = useGame();
 
   return (
     <div className={styles.container}>
@@ -18,8 +18,8 @@ const Home = () => {
           白{white}
         </div>
       </div>
-        <div className={styles.pass} onClick={click_pass}>
-          pass
+        <div className={styles.reload} onClick={click_reload}>
+          リセット
         </div>
         <div className={styles.board}>
           {board.map((row, y) =>
