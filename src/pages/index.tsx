@@ -2,10 +2,13 @@ import { Cell } from '../components/Cell';
 import { useGame } from '../hooks/useGame';
 import styles from './index.module.css';
 const Home = () => {
-  const { onClick, click_reload, board, white, black } = useGame();
+  const { onClick, click_reload, board, white, black, myTurnColor } = useGame();
 
   return (
     <div className={styles.container}>
+        <div className={styles.turn}>
+          {myTurnColor}のターン
+        </div>
       <div className={styles.scores}>
         {/* <div className={styles.pass} onClick={() => clickcell(100, 100)}>
           <p>パス</p>

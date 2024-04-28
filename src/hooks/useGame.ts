@@ -129,5 +129,12 @@ export const useGame = () => {
     }
     setBoard(newBoard);
   };
-  return { click_reload, board, onClick, turncolor, black, white };
+  let  myTurnColor ;
+  if (turncolor == 1){
+    myTurnColor = "黒";
+  }
+  else{
+    myTurnColor = "白";
+  }
+  return { click_reload, board, onClick, turncolor, black, white, myTurnColor };
 };
