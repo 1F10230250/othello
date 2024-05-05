@@ -255,13 +255,13 @@ export const useGame = () => {
   }
   //white,blackの変更を条件に発火
   useEffect(() => {
-    const white_number = white;
+    const whiteNumber = white;
     
     const white_resultElement = document.getElementById('result-white');
     if (white_resultElement) {
-      white_resultElement.textContent ='白' + white_number.toString();
+      white_resultElement.textContent ='白' + whiteNumber.toString();
     }
-    const black_number: number = black;
+    const blackNumber: number = black;
     const black_resultElement = document.getElementById('result-black');
     const result = document.getElementById('resultGame');
     if (passBlackCount === 2 || passWhiteCount === 2) {
@@ -274,7 +274,7 @@ export const useGame = () => {
       }
     }
     if (black_resultElement) {
-      black_resultElement.textContent ='黒' + black_number.toString();
+      black_resultElement.textContent ='黒' + blackNumber.toString();
     }
     if (result && black === 0) {
       result.textContent ='白の勝ち';
