@@ -53,12 +53,30 @@ export const useGame = () => {
   }, [white, black]);
 
   const click_reload = () => {
-    window.location.reload();
+    setBoard([ 
+        //1が黒、２が白
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,1,2,0,0,0],
+      [0,0,0,2,1,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0]
+    ])
+    setTurncolor(1);
     console.log("リセットしました")
   };
 
   //flag
   let stop = 100;
+
+  //     //キープ用ボードに前ボードの情報をコピー
+  // const keepBoard: number[][] = JSON.parse(JSON.stringify(board));
+  // setBoard(keepBoard);
+  // const click_back = () => {
+
+  // }
 
   //passボタン（実装してない）
   const onClick = (x: number, y: number) => {
@@ -195,5 +213,5 @@ export const useGame = () => {
   else{
     myTurnColor = "白";
   }
-  return { click_reload, board, onClick, turncolor};
+  return { click_reload, board, onClick, turncolor };
 };
