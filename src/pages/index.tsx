@@ -6,29 +6,27 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles['black-number']} id="resultGame"/>
-        <div className={styles.turn} >
-          {{1: '黒' , 2: '白'}[turncolor]}のターン
-        </div>
-        
+      <div className={styles['black-number']} id="resultGame" />
+      <div className={styles.turn}>{{ 1: '黒', 2: '白' }[turncolor]}のターン</div>
+
       <div className={styles.scores}>
         {/* <div className={styles.pass} onClick={() => clickcell(100, 100)}>
           <p>パス</p>
         </div> */}
         {/* <div id="your-element-id">要素</div> */}
-        <div className={styles['black-number']} id="result-black"/>
-        <div className={styles['white-number']} id="result-white"/>
+        <div className={styles['black-number']} id="result-black" />
+        <div className={styles['white-number']} id="result-white" />
       </div>
-        <div className={styles.reset} onClick={click_reload}>
-          リセット
-        </div>
-        <div className={styles.board}>
-          {board.map((row, y) =>
-            row.map((color, x) => (
-              <Cell key={`${x}-${y}`} color={color} onClick={() => onClick(x, y)} />
-            ))
-          )}
-        </div>
+      <div className={styles.reset} onClick={click_reload}>
+        リセット
+      </div>
+      <div className={styles.board}>
+        {board.map((row, y) =>
+          row.map((color, x) => (
+            <Cell key={`${x}-${y}`} color={color} onClick={() => onClick(x, y)} />
+          ))
+        )}
+      </div>
     </div>
   );
 };

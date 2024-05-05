@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 export const useGame = () => {
   const [turncolor, setTurncolor] = useState(1);
   //prettier-ignore
- 
+
   //setBoardで盤面更新
   const [board, setBoard] = useState([ 
     //1が黒、２が白
@@ -21,7 +21,7 @@ export const useGame = () => {
 
   //white=白駒の数
   let white = 0;
-  //xaa=x座標　yaa=y座標
+  //xaa=x座標 yaa=y座標
   for (let yaa = 0; yaa <= 7; yaa += 1) {
     for (let xaa = 0; xaa <= 7; xaa += 1) {
       if (board[yaa][xaa] === 2) {
@@ -41,31 +41,28 @@ export const useGame = () => {
   }
 
   const click_reload = () => {
-    setBoard([ 
-        //1が黒、２が白
-      [0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0],
-      [0,0,0,1,2,0,0,0],
-      [0,0,0,2,1,0,0,0],
-      [0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0]
-    ])
+    setBoard([
+      //1が黒、２が白
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 2, 0, 0, 0],
+      [0, 0, 0, 2, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+    ]);
     setTurncolor(1);
-    console.log("リセットしました");
+    console.log('リセットしました');
     const result = document.getElementById('resultGame');
     if (result) {
-      result.textContent ='';
+      result.textContent = '';
     }
     setBlackPassCount(0);
     setWhitePassCount(0);
     // const result = document.getElementById('resultGame');
     // result.textContent ='黒のターン';
   };
-
-  //flag
-  let stop = 100;
 
   //     //キープ用ボードに前ボードの情報をコピー
   // const keepBoard: number[][] = JSON.parse(JSON.stringify(board));
@@ -80,15 +77,15 @@ export const useGame = () => {
       console.log('pass!');
     }
     //置いた座標の表示
-    console.log(x+1, y+1);
-    
+    console.log(x + 1, y + 1);
+
     //更新後のボード定義
     //新しいボードに前ボードの情報をコピー
     const newBoard: number[][] = JSON.parse(JSON.stringify(board));
-    
+
     //クリックした場所が置ける状態か確認
     if ((y !== 100 && x !== 100 && board[y][x] === 0) || board[y][x] === 3) {
-        //石を置けるところの初期化
+      //石を置けるところの初期化
       for (let yaa = 0; yaa <= 7; yaa += 1) {
         for (let xaa = 0; xaa <= 7; xaa += 1) {
           if (board[yaa][xaa] === 3) {
@@ -106,12 +103,7 @@ export const useGame = () => {
             //置いてあるのが他色か確認
             board[y + distancey][x + distancex] === 3 - turncolor
           ) {
-
             for (let distance = 2; distance <= 7; distance += 1) {
-              // if (stop === 50) {
-              //   stop = 100;
-              //   break;
-              // }
               if (
                 //定義域外じゃないか確認
                 board[y + distance * distancey] !== undefined &&
@@ -133,11 +125,9 @@ export const useGame = () => {
                 //ひっくり返す
                 for (let turn = 0; turn <= distance; turn += 1) {
                   newBoard[y + turn * distancey][x + turn * distancex] = turncolor;
-                  //flagを50に
-                  stop = 50;
                   const result = document.getElementById('resultGame');
                   if (result) {
-                    result.textContent ='';
+                    result.textContent = '';
                   }
                 }
                 if (turncolor === 1) {
@@ -169,10 +159,9 @@ export const useGame = () => {
     }
   }
 
-  let passValue: number = 0;
+  let passValue = 0;
   for (let ya = 0; ya <= 7; ya += 1) {
     for (let xa = 0; xa <= 7; xa += 1) {
-      
       //置く場所の確認
       for (let distancey = -1; distancey <= 1; distancey += 1) {
         for (let distancex = -1; distancex <= 1; distancex += 1) {
@@ -185,7 +174,6 @@ export const useGame = () => {
           ) {
             //自石が置いてあるか確認
             for (let distance = 2; distance <= 7; distance += 1) {
-
               //置いてない場合
               if (
                 //定義域外じゃないか確認
@@ -205,7 +193,7 @@ export const useGame = () => {
               ) {
                 break;
               }
-              
+
               //置いてあった場合
               else if (
                 //定義域外じゃないか確認
@@ -229,26 +217,26 @@ export const useGame = () => {
   if (passValue === 0) {
     if (white === 0 || black === 0) {
       passValue = 1;
-      console.log("0");
+      console.log('0');
     }
     if (passValue === 0) {
       setTurncolor(3 - turncolor);
       if (passBlackCount === 2 || passWhiteCount === 2) {
         setBlackPassCount(0);
-        setWhitePassCount(0);        
+        setWhitePassCount(0);
       }
       if (turncolor === 1) {
         setBlackPassCount(passBlackCount + 1);
         const result = document.getElementById('resultGame');
         if (result) {
-          result.textContent ='黒パス';
+          result.textContent = '黒パス';
         }
       }
       if (turncolor === 2) {
         setWhitePassCount(passWhiteCount + 1);
         const result = document.getElementById('resultGame');
         if (result) {
-          result.textContent ='白パス';
+          result.textContent = '白パス';
         }
       }
     }
@@ -256,36 +244,35 @@ export const useGame = () => {
   //white,blackの変更を条件に発火
   useEffect(() => {
     const whiteNumber = white;
-    
+
     const white_resultElement = document.getElementById('result-white');
     if (white_resultElement) {
-      white_resultElement.textContent ='白' + whiteNumber.toString();
+      white_resultElement.textContent = `白${whiteNumber.toString()}`;
     }
-    const blackNumber: number = black;
+    const blackNumber = black;
     const black_resultElement = document.getElementById('result-black');
     const result = document.getElementById('resultGame');
     if (passBlackCount === 2 || passWhiteCount === 2) {
-      console.log("勝負あり！")
+      console.log('勝負あり！');
       if (result && turncolor === 1) {
-        result.textContent ='黒の勝ち';
-      }
-      else if (result && turncolor === 2) {
-        result.textContent ='白の勝ち';
+        result.textContent = '黒の勝ち';
+      } else if (result && turncolor === 2) {
+        result.textContent = '白の勝ち';
       }
     }
     if (black_resultElement) {
-      black_resultElement.textContent ='黒' + blackNumber.toString();
+      black_resultElement.textContent = `黒${blackNumber.toString()}`;
     }
     if (result && black === 0) {
-      result.textContent ='白の勝ち';
+      result.textContent = '白の勝ち';
     }
     if (result && white === 0) {
-      result.textContent ='黒の勝ち';
+      result.textContent = '黒の勝ち';
     }
-    console.log("動いたよ");
+    console.log('動いたよ');
     console.log(passBlackCount);
     console.log(passWhiteCount);
     console.log(turncolor);
-  }, [white, black]);
+  }, [white, black, passBlackCount, passWhiteCount, turncolor]);
   return { click_reload, board, onClick, turncolor };
 };
