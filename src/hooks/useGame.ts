@@ -6,11 +6,11 @@ export const useGame = () => {
   //setBoardで盤面更新
   const [board, setBoard] = useState([ 
     //1が黒、２が白
+  [1,2,0,0,0,0,0,0],
+  [2,2,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0],
-  [0,0,0,1,2,0,0,0],
-  [0,0,0,2,1,0,0,0],
   [0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0]
@@ -137,6 +137,7 @@ export const useGame = () => {
                 //ひっくり返す
                 for (let turn = 0; turn <= distance; turn += 1) {
                   newBoard[y + turn * distancey][x + turn * distancex] = turncolor;
+                  //flagを50に
                   stop = 50;
                 }
                 setTurncolor(3 - turncolor);
@@ -159,6 +160,7 @@ export const useGame = () => {
   }
 
   //石を置く
+  let passValue: number = 0;
   for (let ya = 0; ya <= 7; ya += 1) {
     for (let xa = 0; xa <= 7; xa += 1) {
       
@@ -197,6 +199,7 @@ export const useGame = () => {
                 //置ける場所として赤表示
                 if (board[ya][xa] === 0) {
                   board[ya][xa] = 3;
+                  passValue += 1;
                 }
               }
             }
@@ -205,13 +208,13 @@ export const useGame = () => {
       }
     }
   }
-
-  let  myTurnColor ;
-  if (turncolor == 1){
-    myTurnColor = "黒";
-  }
-  else{
-    myTurnColor = "白";
+  if (passValue === 0) {
+    if (white === 0 || black === 0) {
+      passValue = 1;
+    }
+    if (passValue === 0) {
+      setTurncolor(3 - turncolor);
+    }
   }
   return { click_reload, board, onClick, turncolor };
 };
