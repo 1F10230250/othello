@@ -6,11 +6,11 @@ export const useGame = () => {
   //setBoardで盤面更新
   const [board, setBoard] = useState([ 
     //1が黒、２が白
-  [1,2,0,0,0,0,0,0],
-  [2,2,2,0,0,0,0,0],
   [0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0],
+  [0,0,0,1,2,0,0,0],
+  [0,0,0,2,1,0,0,0],
   [0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0]
@@ -135,6 +135,10 @@ export const useGame = () => {
                   newBoard[y + turn * distancey][x + turn * distancex] = turncolor;
                   //flagを50に
                   stop = 50;
+                  const result = document.getElementById('resultGame');
+                  if (result) {
+                    result.textContent ='';
+                  }
                 }
                 if (turncolor === 1) {
                   if (passBlackCount === 1) {
@@ -235,9 +239,17 @@ export const useGame = () => {
       }
       if (turncolor === 1) {
         setBlackPassCount(passBlackCount + 1);
+        const result = document.getElementById('resultGame');
+        if (result) {
+          result.textContent ='黒パス';
+        }
       }
       if (turncolor === 2) {
         setWhitePassCount(passWhiteCount + 1);
+        const result = document.getElementById('resultGame');
+        if (result) {
+          result.textContent ='白パス';
+        }
       }
     }
   }
