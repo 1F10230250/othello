@@ -6,9 +6,11 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-        <div className={styles.turn}>
+      <div className={styles.black_number} id="resultGame"/>
+        <div className={styles.turn} >
           {{1: '黒' , 2: '白'}[turncolor]}のターン
         </div>
+        
       <div className={styles.scores}>
         {/* <div className={styles.pass} onClick={() => clickcell(100, 100)}>
           <p>パス</p>
@@ -17,7 +19,7 @@ const Home = () => {
         <div className={styles.black_number} id="result-black"/>
         <div className={styles.white_number} id="result-white"/>
       </div>
-        <div className={styles.reload} onClick={click_reload}>
+        <div className={styles.reset} onClick={click_reload}>
           リセット
         </div>
         <div className={styles.board}>

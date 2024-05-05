@@ -7,7 +7,7 @@ export const useGame = () => {
   const [board, setBoard] = useState([ 
     //1が黒、２が白
   [1,2,0,0,0,0,0,0],
-  [2,2,0,0,0,0,0,0],
+  [2,2,2,0,0,0,0,0],
   [0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0],
@@ -15,6 +15,9 @@ export const useGame = () => {
   [0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0]
   ]);
+
+  const [passBlackCount, setBlackPassCount] = useState(0);
+  const [passWhiteCount, setWhitePassCount] = useState(0);
 
   //white=白駒の数
   let white = 0;
@@ -37,21 +40,6 @@ export const useGame = () => {
     }
   }
 
-  //white,blackの変更を条件に発火
-  useEffect(() => {
-    const white_number = white;
-    
-    const white_resultElement = document.getElementById('result-white');
-    if (white_resultElement) {
-      white_resultElement.textContent ='白' + white_number.toString();
-    }
-    const black_number: number = black;
-    const black_resultElement = document.getElementById('result-black');
-    if (black_resultElement) {
-      black_resultElement.textContent ='黒' + black_number.toString();
-    }
-  }, [white, black]);
-
   const click_reload = () => {
     setBoard([ 
         //1が黒、２が白
@@ -65,7 +53,15 @@ export const useGame = () => {
       [0,0,0,0,0,0,0,0]
     ])
     setTurncolor(1);
-    console.log("リセットしました")
+    console.log("リセットしました");
+    const result = document.getElementById('resultGame');
+    if (result) {
+      result.textContent ='';
+    }
+    setBlackPassCount(0);
+    setWhitePassCount(0);
+    // const result = document.getElementById('resultGame');
+    // result.textContent ='黒のターン';
   };
 
   //flag
@@ -140,6 +136,16 @@ export const useGame = () => {
                   //flagを50に
                   stop = 50;
                 }
+                if (turncolor === 1) {
+                  if (passBlackCount === 1) {
+                    setBlackPassCount(0);
+                  }
+                }
+                if (turncolor === 2) {
+                  if (passWhiteCount === 1) {
+                    setWhitePassCount(0);
+                  }
+                }
                 setTurncolor(3 - turncolor);
               }
             }
@@ -159,7 +165,6 @@ export const useGame = () => {
     }
   }
 
-  //石を置く
   let passValue: number = 0;
   for (let ya = 0; ya <= 7; ya += 1) {
     for (let xa = 0; xa <= 7; xa += 1) {
@@ -174,7 +179,7 @@ export const useGame = () => {
             //隣が他色か確認
             board[ya + distancey][xa + distancex] === 3 - turncolor
           ) {
-            //自石が置けるか確認
+            //自石が置いてあるか確認
             for (let distance = 2; distance <= 7; distance += 1) {
 
               //置いてない場合
@@ -184,6 +189,15 @@ export const useGame = () => {
                 board[xa + distance * distancex] !== undefined &&
                 //そこに何も置いてないか確認
                 board[ya + distance * distancey][xa + distance * distancex] === 0
+              ) {
+                break;
+              }
+              if (
+                //定義域外じゃないか確認
+                board[ya + distance * distancey] !== undefined &&
+                board[xa + distance * distancex] !== undefined &&
+                //そこに何も置いてないか確認
+                board[ya + distance * distancey][xa + distance * distancex] === 3
               ) {
                 break;
               }
@@ -211,10 +225,55 @@ export const useGame = () => {
   if (passValue === 0) {
     if (white === 0 || black === 0) {
       passValue = 1;
+      console.log("0");
     }
     if (passValue === 0) {
       setTurncolor(3 - turncolor);
+      if (passBlackCount === 2 || passWhiteCount === 2) {
+        setBlackPassCount(0);
+        setWhitePassCount(0);        
+      }
+      if (turncolor === 1) {
+        setBlackPassCount(passBlackCount + 1);
+      }
+      if (turncolor === 2) {
+        setWhitePassCount(passWhiteCount + 1);
+      }
     }
   }
+  //white,blackの変更を条件に発火
+  useEffect(() => {
+    const white_number = white;
+    
+    const white_resultElement = document.getElementById('result-white');
+    if (white_resultElement) {
+      white_resultElement.textContent ='白' + white_number.toString();
+    }
+    const black_number: number = black;
+    const black_resultElement = document.getElementById('result-black');
+    const result = document.getElementById('resultGame');
+    if (passBlackCount === 2 || passWhiteCount === 2) {
+      console.log("勝負あり！")
+      if (result && turncolor === 1) {
+        result.textContent ='黒の勝ち';
+      }
+      else if (result && turncolor === 2) {
+        result.textContent ='白の勝ち';
+      }
+    }
+    if (black_resultElement) {
+      black_resultElement.textContent ='黒' + black_number.toString();
+    }
+    if (result && black === 0) {
+      result.textContent ='白の勝ち';
+    }
+    if (result && white === 0) {
+      result.textContent ='黒の勝ち';
+    }
+    console.log("動いたよ");
+    console.log(passBlackCount);
+    console.log(passWhiteCount);
+    console.log(turncolor);
+  }, [white, black]);
   return { click_reload, board, onClick, turncolor };
 };
